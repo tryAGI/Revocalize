@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: Revocalize AI API
+  version: "1.0.0"
+  description: |
+    Focused OpenAPI description for Revocalize voice conversion and voice model APIs.
+    The upstream API reference is published at https://docs.revocalize.ai/.
+  contact:
+    name: Revocalize AI
+    url: https://docs.revocalize.ai/
+servers:
+  - url: https://api.revocalize.ai
+    description: Production
+security:
+  - BearerAuth: []
+tags:
+  - name: Conversion
+  - name: Models
+  - name: Training
+paths:
+  /convert:
+    post:
+      tags:
+        - Conversion
+      operationId: convertAudio
+      summary: Convert a vocal audio file to a target voice model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ConvertAudioRequest"
+      responses:
+        "200":
+          description: Conversion task accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskCreatedResponse"
+
+  /check-task/{task_id}:
+    get:
+      tags:
+        - Conversion
+      operationId: checkTask
+      summary: Check conversion task status
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Current task status.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskStatusResponse"
+
+  /models:
+    get:
+      tags:
+        - Models
+      operationId: listModels
+      summary: Get available AI voice models
+      responses:
+        "200":
+          description: Available voice models.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListModelsResponse"
+
+  /models/create:
+    post:
+      tags:
+        - Models
+      operationId: createModel
+      summary: Create a pending custom AI voice model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/CreateModelRequest"
+      responses:
+        "200":
+          description: Created pending model ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateModelResponse"
+
+  /models/{model_id}/train:
+    post:
+      tags:
+        - Training
+      operationId: trainModel
+      summary: Train a custom AI voice model
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TrainModelRequest"
+      responses:
+        "200":
+          description: Training status.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainModelResponse"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: "Revocalize API key as `Authorization: Bearer <api-key>`."
+
+  schemas:
+    ConvertAudioRequest:
+      type: object
+      required:
+        - audio
+        - model
+      properties:
+        audio:
+          type: string
+          format: binary
+          description: Input vocal audio file, preferably WAV.
+        model:
+          type: string
+          description: Target model ID.
+        transpose:
+          type: integer
+          minimum: -12
+          maximum: 12
+          default: 0
+        generations_count:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+
+    TaskCreatedResponse:
+      type: object
+      properties:
+        task_id:
+          type: string
+
+    TaskStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - completed
+            - in_progress
+            - failed
+        input_audio_url:
+          type: string
+          format: uri
+        output_audio_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        output_settings:
+          type: object
+          additionalProperties: true
+        error:
+          type: string
+
+    ListModelsResponse:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: "#/components/schemas/VoiceModel"
+
+    VoiceModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        gender:
+          type: string
+        age:
+          type: string
+        description:
+          type: string
+        base_language:
+          type: string
+        traits:
+          type: array
+          items:
+            type: string
+        genre:
+          type: string
+        voice_type:
+          type: string
+        vocal_range:
+          $ref: "#/components/schemas/VocalRange"
+
+    VocalRange:
+      type: object
+      properties:
+        min:
+          type: string
+        max:
+          type: string
+
+    CreateModelRequest:
+      type: object
+      required:
+        - training_audio_files
+      properties:
+        training_audio_files:
+          type: string
+          format: binary
+          description: ZIP containing model.json and an audio folder.
+
+    CreateModelResponse:
+      type: object
+      properties:
+        model_id:
+          type: string
+
+    TrainModelRequest:
+      type: object
+      required:
+        - epochs
+      properties:
+        epochs:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    TrainModelResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - training
+            - completed
+            - failed
+        model_id:
+          type: string
+        current_epoch:
+          type: integer
