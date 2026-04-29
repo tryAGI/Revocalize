@@ -123,10 +123,10 @@ namespace Revocalize
             }
                             var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent($"{modelId}"),
+                                content: new global::System.Net.Http.StringContent(modelId ?? string.Empty),
                                 name: "\"model_id\"");
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent($"{request.Epochs}"),
+                                content: new global::System.Net.Http.StringContent(global::System.Convert.ToString(request.Epochs, global::System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty),
                                 name: "\"epochs\"");
                             __httpRequest.Content = __httpRequestContent;
                 global::Revocalize.AutoSDKRequestOptionsSupport.ApplyHeaders(
@@ -140,7 +140,7 @@ namespace Revocalize
                 PrepareTrainModelRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    modelId: modelId,
+                    modelId: modelId!,
                     request: request);
 
                 return __httpRequest;
