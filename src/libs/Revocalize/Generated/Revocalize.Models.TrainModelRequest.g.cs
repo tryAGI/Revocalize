@@ -40,5 +40,6 @@ namespace Revocalize
         public TrainModelRequest()
         {
         }
+
     }
 }

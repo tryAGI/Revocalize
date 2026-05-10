@@ -76,5 +76,6 @@ namespace Revocalize
         public TaskStatusResponse()
         {
         }
+
     }
 }

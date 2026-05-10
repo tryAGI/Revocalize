@@ -39,5 +39,6 @@ namespace Revocalize
         public ListModelsResponse()
         {
         }
+
     }
 }
