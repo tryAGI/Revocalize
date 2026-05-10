@@ -120,5 +120,6 @@ namespace Revocalize
         public VoiceModel()
         {
         }
+
     }
 }

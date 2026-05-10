@@ -48,5 +48,6 @@ namespace Revocalize
         public VocalRange()
         {
         }
+
     }
 }
