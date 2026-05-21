@@ -44,7 +44,7 @@ namespace Revocalize
         /// <summary>
         /// 
         /// </summary>
-        public ConversionClient Conversion => new ConversionClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ConversionClient Conversion => new ConversionClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -53,7 +53,7 @@ namespace Revocalize
         /// <summary>
         /// 
         /// </summary>
-        public ModelsClient Models => new ModelsClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ModelsClient Models => new ModelsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -62,7 +62,7 @@ namespace Revocalize
         /// <summary>
         /// 
         /// </summary>
-        public TrainingClient Training => new TrainingClient(HttpClient, authorizations: Authorizations, options: Options)
+        public TrainingClient Training => new TrainingClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -91,6 +91,27 @@ namespace Revocalize
         }
 
         /// <summary>
+        /// Creates a new instance of the RevocalizeClient with explicit options but no base URL override.
+        /// Skips passing <c>baseUri</c> so the default base URL from the OpenAPI spec applies.
+        /// </summary>
+        /// <param name="httpClient">The HttpClient instance. If not provided, a new one will be created.</param>
+        /// <param name="authorizations">The authorizations to use for the requests.</param>
+        /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
+        /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
+        public RevocalizeClient(
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Collections.Generic.List<global::Revocalize.EndPointAuthorization>? authorizations,
+            global::Revocalize.AutoSDKClientOptions? options,
+            bool disposeHttpClient = true) : this(
+                httpClient,
+                baseUri: null,
+                authorizations,
+                options,
+                disposeHttpClient: disposeHttpClient)
+        {
+        }
+
+        /// <summary>
         /// Creates a new instance of the RevocalizeClient.
         /// If no httpClient is provided, a new one will be created.
         /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
@@ -101,10 +122,10 @@ namespace Revocalize
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public RevocalizeClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::Revocalize.EndPointAuthorization>? authorizations = null,
-            global::Revocalize.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::Revocalize.EndPointAuthorization>? authorizations,
+            global::Revocalize.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 
