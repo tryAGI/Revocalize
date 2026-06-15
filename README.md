@@ -40,6 +40,13 @@ using Revocalize;
 using var client = new RevocalizeClient(apiKey);
 ```
 
+### CLI
+
+```bash
+dotnet tool install --global Revocalize.CLI --prerelease
+revocalize api --help
+```
+
 <!-- EXAMPLES:START -->
 <!-- EXAMPLES:END -->
 
