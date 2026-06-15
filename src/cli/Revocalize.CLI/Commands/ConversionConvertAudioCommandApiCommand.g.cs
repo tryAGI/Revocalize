@@ -112,8 +112,8 @@ internal static partial class ConversionConvertAudioCommandApiCommand
                         var audio = parseResult.GetRequiredValue(Audio);
                         var audioname = parseResult.GetRequiredValue(Audioname);
                         var model = parseResult.GetRequiredValue(Model);
-                        var transpose = CliRuntime.WasSpecified(parseResult, Transpose) ? parseResult.GetValue(Transpose) : __requestBase is not null ? __requestBase.Transpose : default;
-                        var generationsCount = CliRuntime.WasSpecified(parseResult, GenerationsCount) ? parseResult.GetValue(GenerationsCount) : __requestBase is not null ? __requestBase.GenerationsCount : default;
+                        var transpose = CliRuntime.WasSpecified(parseResult, Transpose) ? parseResult.GetValue(Transpose) : (__requestBase is { } __TransposeBaseValue ? __TransposeBaseValue.Transpose : default);
+                        var generationsCount = CliRuntime.WasSpecified(parseResult, GenerationsCount) ? parseResult.GetValue(GenerationsCount) : (__requestBase is { } __GenerationsCountBaseValue ? __GenerationsCountBaseValue.GenerationsCount : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
