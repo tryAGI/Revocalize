@@ -124,7 +124,7 @@ namespace Revocalize
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                 global::Revocalize.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,

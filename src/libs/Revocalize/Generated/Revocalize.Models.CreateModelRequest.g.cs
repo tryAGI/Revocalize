@@ -4,7 +4,7 @@
 namespace Revocalize
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateModelRequest
     {

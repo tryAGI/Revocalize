@@ -4,12 +4,12 @@
 namespace Revocalize
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class TrainModelRequest
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("epochs")]
         [global::System.Text.Json.Serialization.JsonRequired]

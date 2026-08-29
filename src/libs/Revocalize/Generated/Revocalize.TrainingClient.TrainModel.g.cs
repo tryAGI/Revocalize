@@ -145,14 +145,10 @@ namespace Revocalize
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
                             var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
-                            __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent(modelId ?? string.Empty),
-                                name: "\"model_id\"");
-
                             __httpRequestContent.Add(
                                 content: new global::System.Net.Http.StringContent(global::System.Convert.ToString(request.Epochs, global::System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty),
                                 name: "\"epochs\"");

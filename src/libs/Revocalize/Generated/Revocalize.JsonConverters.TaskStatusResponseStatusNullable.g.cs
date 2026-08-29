@@ -20,7 +20,7 @@ namespace Revocalize.JsonConverters
                     {
                         return global::Revocalize.TaskStatusResponseStatusExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:
