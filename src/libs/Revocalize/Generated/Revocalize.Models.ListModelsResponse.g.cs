@@ -4,12 +4,12 @@
 namespace Revocalize
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ListModelsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("models")]
         public global::System.Collections.Generic.IList<global::Revocalize.VoiceModel>? Models { get; set; }
