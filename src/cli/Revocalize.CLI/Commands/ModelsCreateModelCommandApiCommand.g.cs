@@ -43,9 +43,9 @@ internal static partial class ModelsCreateModelCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-model", @"Create a pending custom AI voice model");
+        var command = new Command(commandName ?? @"create-model", @"Create a pending custom AI voice model");
                         command.Options.Add(TrainingAudioFiles);
                         command.Options.Add(TrainingAudioFilesname);
 

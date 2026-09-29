@@ -78,9 +78,9 @@ internal static partial class ConversionConvertAudioCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"convert-audio", @"Convert a vocal audio file to a target voice model");
+        var command = new Command(commandName ?? @"convert-audio", @"Convert a vocal audio file to a target voice model");
                         command.Options.Add(Audio);
                         command.Options.Add(Audioname);
                         command.Options.Add(Model);

@@ -42,9 +42,9 @@ internal static partial class TrainingTrainModelCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"train-model", @"Train a custom AI voice model");
+        var command = new Command(commandName ?? @"train-model", @"Train a custom AI voice model");
                         command.Arguments.Add(ModelId);
                         command.Options.Add(Epochs);
 

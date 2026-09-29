@@ -35,9 +35,9 @@ internal static partial class ConversionCheckTaskCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"check-task", @"Check conversion task status");
+        var command = new Command(commandName ?? @"check-task", @"Check conversion task status");
                         command.Arguments.Add(TaskId);
 
 

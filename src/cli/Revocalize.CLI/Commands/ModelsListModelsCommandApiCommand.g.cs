@@ -31,9 +31,9 @@ internal static partial class ModelsListModelsCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"list-models", @"Get available AI voice models");
+        var command = new Command(commandName ?? @"list-models", @"Get available AI voice models");
 
 
 
