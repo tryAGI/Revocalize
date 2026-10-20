@@ -15,11 +15,16 @@ autosdk generate openapi.yaml \
   --exclude-deprecated-operations \
   --security-scheme Http:Header:Bearer
 
-rm -rf ../../cli/Revocalize.CLI
+# The project owns its reviewed package versions and build metadata. Remove only
+# generated commands; retain the .csproj and other owner files in the CLI root.
+if [[ -d ../../cli/Revocalize.CLI/Commands ]]; then
+  find ../../cli/Revocalize.CLI/Commands -type f -name '*.g.cs' -delete
+fi
 
 autosdk cli-project openapi.yaml \
   --output ../../cli/Revocalize.CLI \
   --sdk-project ../../libs/Revocalize/Revocalize.csproj \
+  --preserve-project-file \
   --targetFramework net10.0 \
   --namespace Revocalize \
   --clientClassName RevocalizeClient \
