@@ -14,5 +14,6 @@ rootCommand.Subcommands.Add(AuthCommand.Create());
 rootCommand.Subcommands.Add(ConversionApiGroupCommand.Create());
 rootCommand.Subcommands.Add(ModelsApiGroupCommand.Create());
 rootCommand.Subcommands.Add(TrainingApiGroupCommand.Create());
+rootCommand.Subcommands.Add(CliCompletion.CreateCommand(rootCommand, @"revocalize"));
 
 return await rootCommand.Parse(args).InvokeAsync().ConfigureAwait(false);
